@@ -1,0 +1,28 @@
+[package]
+name = "g13-nexus"
+version = "1.0.0"
+edition = "2021"
+license = "MIT"
+description = "Logitech G13 Linux Daemon and Configuration GUI"
+
+[dependencies]
+eframe = "0.36"
+hidapi = "2.6"
+evdev = "0.12"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+dirs = "5.0"
+
+[[bin]]
+name = "g13-gui"
+path = "src/bin/gui.rs"
+
+[[bin]]
+name = "g13-daemon"
+path = "src/bin/daemon.rs"
+
+[package.metadata.generate-rpm]
+assets = [
+    { source = "target/release/g13-gui", dest = "/usr/bin/g13-gui", mode = "755" },
+    { source = "target/release/g13-daemon", dest = "/usr/bin/g13-daemon", mode = "755" }
+]
